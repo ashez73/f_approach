@@ -20,11 +20,12 @@ class App extends Component {
   constructor(props){
   super(props);
   this.getList =this.getList.bind(this);
-  this.state ={response:"lolz"};
+  this.state ={response:"uauaua", list: 'ohohoh'};
   }
 componentDidMount(){
   console.log("mounted");
   this.getList();
+  this.time();
   //this.upd();
 }
 
@@ -37,6 +38,7 @@ getList(){
     let tx = db.transaction('objectStoreName', 'readwrite');
     let store = tx.objectStore('objectStoreName');
     var objectStoreRequest =store.get(1);
+    var objectStoreAnotherRequest =store.count();
     //console.log (objectStoreRequest);
    
     objectStoreRequest.onsuccess = function(){
@@ -44,21 +46,32 @@ getList(){
       that.setState({response: objectStoreRequest.result});
       console.log(objectStoreRequest.result);
     } 
+    objectStoreAnotherRequest.onsuccess = function(){
+      console.log('SUKCES2!');
+      that.setState({list: objectStoreAnotherRequest.result});
+      console.log(objectStoreAnotherRequest);
+    } 
 }
   
-}
- 
+} 
+
 upd=()=>{
   this.forceUpdate(); 
  }
+
+ time= ()=> setInterval(
+  () => console.log('zzz'),
+  3000
+);
   render() {
    // ==this.getList();
-   
+   //this.time();
 
     return (
       <div className="App">
         <h2>lol</h2>
         <h1>{this.state.response.firstname}</h1>
+        <h1>{this.state.list}</h1>
       </div>
     );
   }
