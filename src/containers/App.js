@@ -3,6 +3,7 @@ import './App.css';
 import Wrapper from '../components/Wrapper';
 import idb from 'idb';
 
+
 if (!('indexedDB' in window)) {
   console.log('This browser doesn\'t support IndexedDB');
 }
@@ -11,7 +12,7 @@ function putSomeData() {
     let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
     let open = indexedDB.open('db-name', 1)
     open.onupgradeneeded = function() {
-        let db = open.result
+       let  db = open.result
         db.createObjectStore('objectStoreName', { autoIncrement: true })
     }    
 }
@@ -26,7 +27,7 @@ class App extends Component {
 componentDidMount(){
   console.log("mounted");
   this.getList();
-  this.time();
+  //this.time();
   //this.upd();
 }
 
@@ -65,9 +66,52 @@ upd=()=>{
   3000
 );
 
-methods=(e,meth)=>{
-console.log(meth);
-meth==='update'? console.log('update'): console.log ('delete');
+/*
+deleteRecords = records => {
+  request = db
+    .transaction([DB_STORE_NAME], "readwrite")
+    .objectStore(DB_STORE_NAME)
+    .delete(records);
+  request.onsuccess = () => {
+    let myArray = [...this.state.response];
+    let index = myArray.indexOf(records);
+    myArray.splice(index, 1);
+    console.log(myArray);
+    this.setState(() => {
+      return { response: myArray };
+    });
+  };
+};
+*/
+
+deleteRecord(record){
+  //console.log(record);
+  //console.log('del?');
+  let open = indexedDB.open('db-name', 1);
+  open.onsuccess = function() {
+  let db = open.result;
+  /*
+  let request =db
+    .transaction('db-name', "readwrite")
+    .objectStore('dbname')
+    .delete(record)
+*/
+  let myRequest =db.transaction ('objectStoreName', "readwrite").objectStore('objectStoreName');
+    
+    myRequest.delete(record).onsuccess =()=>{
+      console.log('DELETED');
+    }
+ 
+  }
+  }
+  //let tx = db.transaction('objectStoreName', 'readwrite');
+
+
+
+
+methods=(record,meth,e)=>{
+console.log(record,meth,e);
+meth==='update'? console.log('update'): this.deleteRecord(record);
 }
 
 

@@ -17,10 +17,10 @@ const RecordList = ({ data, methods }) => {
               <span style={{ textTransform: "uppercase" }}>
                 entry no. {record}</span>
               <ButtonGroup size="sm" style={{ float: "right" }}>
-                <Button color="primary" onClick={(e)=>methods(e,'update')}>
+                <Button color="primary" onClick={(e)=>methods(record,'update',e)}>
                   Update
                 </Button>
-                <Button color="dark" onClick={(e)=>methods(e, 'delete')}>
+                <Button color="dark" onClick={(e)=>methods(record, 'delete',e)}>
                   Delete
                 </Button>
               </ButtonGroup>
