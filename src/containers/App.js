@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Wrapper from '../components/Wrapper';
 import idb from 'idb';
 
 if (!('indexedDB' in window)) {
@@ -20,7 +21,7 @@ class App extends Component {
   constructor(props){
   super(props);
   this.getList =this.getList.bind(this);
-  this.state ={response:"uauaua", list: 'ohohoh'};
+  this.state ={response:"uauaua", list: []};
   }
 componentDidMount(){
   console.log("mounted");
@@ -38,7 +39,7 @@ getList(){
     let tx = db.transaction('objectStoreName', 'readwrite');
     let store = tx.objectStore('objectStoreName');
     var objectStoreRequest =store.get(1);
-    var objectStoreAnotherRequest =store.count();
+    var objectStoreAnotherRequest =store.getAllKeys();
     //console.log (objectStoreRequest);
    
     objectStoreRequest.onsuccess = function(){
@@ -63,15 +64,22 @@ upd=()=>{
   () => console.log('zzz'),
   3000
 );
+
+methods=(e,meth)=>{
+console.log(meth);
+meth==='update'? console.log('update'): console.log ('delete');
+}
+
+
+
   render() {
    // ==this.getList();
    //this.time();
 
     return (
       <div className="App">
-        <h2>lol</h2>
-        <h1>{this.state.response.firstname}</h1>
-        <h1>{this.state.list}</h1>
+        <Wrapper data = {this.state} methods={this.methods}/>
+    {/*<h1>{this.state.response.firstname}</h1>*/}
       </div>
     );
   }

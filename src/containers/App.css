@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-sky-blue {
+  background-color:#1ea3eb;
+}
+.my-badge {
+  float:right;
+  margin: 0 2px;
+  font-size: 1.5rem;
+}
