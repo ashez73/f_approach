@@ -3,7 +3,9 @@ import RecordList from './RecordList';
 import MyHeader from './MyHeader';
 import { Container } from "reactstrap";
 import AddNewRecordBtn from './AddNewRecordBtn'
+import MasterForm from './MasterForm';
 const Wrapper = ({data, methods})=>{
+  console.log('vis', data.formVis);
   return(
     <>
     <MyHeader/>
@@ -11,7 +13,8 @@ const Wrapper = ({data, methods})=>{
     <Container style={{marginTop: "160px"}}>
     <h1>{data.list}</h1>
     <RecordList data={data} methods ={methods} />
-    <AddNewRecordBtn btAdd = {data.addNewVis}/>
+    {data.formVis?<MasterForm />:null}
+    <AddNewRecordBtn btAdd = {data.addNewVis} methods ={methods}/>
     </Container>
     </main>
     </>

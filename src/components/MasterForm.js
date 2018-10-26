@@ -3,23 +3,20 @@ import { Form, FormGroup, Label, Input, FormText, Button } from "reactstrap";
 import "./MasterForm.css";
 import SubFormLv1 from "./SubFormLv1";
 
-const MasterForm = ({ formState, updateForm, updateRadio, handleSubmit,mode }) => {
-  if (mode!=="submit"&& mode!=="add") {
-    return <div></div>;
-  } else {
+const MasterForm = () => {
+  
     return (
       <div>
-        <Form style={{ textAlign: "left" }} onSubmit={handleSubmit}>
+        <Form style={{ textAlign: "left" }} onSubmit={()=>console.log('change')}>
           <Label>Do you own a car?</Label>
-          {console.log(formState.ownsCar)}
           <FormGroup check>
             <Label check>
               <Input
-                onChange={updateRadio}
+                onChange={()=>console.log('change')}
                 type="radio"
                 id="rad1"
                 value="1"
-                checked={formState.ownsCar}
+                checked={()=>console.log('change')}
                 name="ownsCar"
                 required
               />{" "}
@@ -29,11 +26,11 @@ const MasterForm = ({ formState, updateForm, updateRadio, handleSubmit,mode }) =
           <FormGroup check>
             <Label check>
               <Input
-                onChange={updateRadio}
+                onChange={()=>console.log('change')}
                 type="radio"
                 id="rad2"
                 value="0"
-                checked={!formState.ownsCar}
+                checked={()=>console.log('change')}
                 name="ownsCar"
                 required
               />{" "}
@@ -41,31 +38,31 @@ const MasterForm = ({ formState, updateForm, updateRadio, handleSubmit,mode }) =
             </Label>
           </FormGroup>
           <SubFormLv1
-            subState={formState}
-            updateForm={updateForm}
-            updateRadio={updateRadio}
+            subState={()=>console.log('change')}
+            updateForm={()=>console.log('change')}
+            updateRadio={()=>console.log('change')}
           />
           <FormGroup className="mgr">
             <Label for="building">What year was your building built?</Label>
             <Input
-              onChange={updateForm}
+              onChange={()=>console.log('change')}
               type="number"
               name="buildingBuilt"
               id="building"
               placeholder="Enter number"
-              value={formState.buildingBuilt}
+              value={()=>console.log('change')}
               required
             />
           </FormGroup>
           <FormGroup>
             <Label for="companyName">Company name</Label>
             <Input
-              onChange={updateForm}
+              onChange={()=>console.log('change')}
               type="text"
               name="companyName"
               id="cn"
               placeholder="Company name"
-              value={formState.companyName}
+              value={()=>console.log('change')}
               required
             />
           </FormGroup>
@@ -75,6 +72,5 @@ const MasterForm = ({ formState, updateForm, updateRadio, handleSubmit,mode }) =
         </Form>
       </div>
     );
-  }
-};
+  };
 export default MasterForm;

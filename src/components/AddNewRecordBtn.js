@@ -1,14 +1,14 @@
 import React from "react";
 import { Button } from "reactstrap";
 
-const AddNewRecordBtn = ({ btAdd }) => {
+const AddNewRecordBtn = ({ btAdd, methods }) => {
   return (btAdd === 0) ? null : (
     <div>
       <Button
         color="primary"
         type="button"
         style={{ margin: "20px" }}
-        onClick={() => console.log('lol')}>
+        onClick={(e)=>methods(e,"getForm")}>
         Add New Record
       </Button>
     </div>

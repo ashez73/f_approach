@@ -31,7 +31,9 @@ class App extends Component {
     this.state = {
       response: "uauaua",
       list: [],
-      addNewVis: 1
+      addNewVis: 1,
+      formVis: 0,
+      mode:0,
     };
   }
   componentDidMount() {
@@ -83,47 +85,75 @@ class App extends Component {
 
   deleteRecord(record) {
     var that = this;
-  
     console.log('still here');
     let open = indexedDB.open('db-name', 1);
     open.onsuccess = function () {
       let db = open.result;
       let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
       let myRequest = requestStore.delete(record);
-
       myRequest.onsuccess = () => {
-        console.log('DELETED');
-        console.log('processing new request')
-        
         let myAnotherRequest = requestStore.getAllKeys();
-        console.log(myAnotherRequest)
         myAnotherRequest.onsuccess = () => {
-          console.log('getting again');
           that.setState({ list: myAnotherRequest.result });
         }
       }
-
-
-
     }
   }
 
-    methods = (record, meth, e) => {
-      //console.log(record,meth,e);
-      meth === 'update' ? console.log('update') : this.deleteRecord(record);
-    }
-
-
-
-    render() {
-      // ==this.getList();
-      //this.time();
-
-      return (<div className="App" >
-        <Wrapper data={this.state} methods={this.methods}/>
-        </div>
-      );
+  addRecord(myRecord) {
+    var that = this;
+    let open = indexedDB.open('db-name', 1);
+    open.onsuccess = function () {
+    let db = open.result;
+      let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
+      let myRequest = requestStore.add({ taskTitle: "Walk dog", hours: 19, minutes: 30, day: 24, month: 'December', year: 2013, notified: "no" });
+      myRequest.onsuccess = () => {
+        alert('RECORD ADDED');
+        let myAnotherRequest = requestStore.getAllKeys();
+        myAnotherRequest.onsuccess = () => {
+          that.setState({ list: myAnotherRequest.result });
+        }
+      }
     }
   }
-  
+
+  methods = (e, meth, myRecord = 0) => {
+    console.log(myRecord, meth, e);
+    if (meth === "update") {
+      console.log('update');
+    }
+    else if (meth === "delete") {
+      this.deleteRecord(myRecord);
+    }
+    else if (meth === "getForm") {
+      this.setState({formVis:1,addNewVis:0});
+      console.log('?????????');
+    }
+    else if (meth === "add") {
+      this.addRecord(myRecord)
+      console.log('?????????');
+    }
+
+  }
+
+  toggleFormVisibility() {
+    this.state.formVis ? this.setState({ formVis: 0 }) : this.setState({ formVis: 1 });
+  }
+
+  toggleAddButtonVisibility() {
+    this.state.addNewVis ? this.setState({ addNewVis: 0 }) : this.setState({ addNewVis: 1 });
+  }
+
+
+  render() {
+    // ==this.getList();
+    //this.time();
+
+    return (<div className="App" >
+      <Wrapper data={this.state} methods={this.methods} />
+    </div>
+    );
+  }
+}
+
 export default App;
