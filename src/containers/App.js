@@ -101,6 +101,21 @@ class App extends Component {
   }
 
   addRecord(myRecord) {
+    let myObj = myRecord
+    if (myObj.model !== "Toyota") {
+      myObj.recalled = "";
+    } else if (myObj.model !== "Ford") {
+      myObj.wheels = "";
+      myObj.color = "";
+      myObj.legal = "";
+    }
+    if (!myObj.ownsCar) {
+      myObj.model = "";
+      myObj.wheels = "";
+      myObj.color = "";
+      myObj.recalled = "";
+      myObj.legal = "";
+    }
     var that = this;
     let open = indexedDB.open('db-name', 1);
     open.onsuccess = function () {
@@ -126,12 +141,14 @@ class App extends Component {
       this.deleteRecord(myRecord);
     }
     else if (meth === "getForm") {
-      this.setState({formVis:1,addNewVis:0});
+      this.setState({formVis:1,addNewVis:0, mode:"add"});
       console.log('?????????');
     }
     else if (meth === "add") {
-      this.addRecord(myRecord)
-      console.log('?????????');
+      console.log('hogz');
+      console.log(e, meth, myRecord);
+      //this.addRecord(myRecord)
+
     }
 
   }
