@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 import './App.css';
 import Wrapper from '../components/Wrapper';
-import idb from 'idb';
 
 
 if (!('indexedDB' in window)) {
@@ -29,16 +28,18 @@ class App extends Component {
     super(props);
     this.getList = this.getList.bind(this);
     this.state = {
-      response: "uauaua",
+      response: {},
       list: [],
       addNewVis: 1,
       formVis: 0,
+      subVis:1,
       mode:'none',
     };
   }
   componentDidMount() {
-    console.log("mounted");
+    
     this.getList();
+    
     //this.time();
     //this.upd();
   }
@@ -51,23 +52,23 @@ class App extends Component {
       let db = open.result;
       let tx = db.transaction('objectStoreName', 'readwrite');
       let store = tx.objectStore('objectStoreName');
-      var objectStoreRequest = store.get(1);
+      var objectStoreRequest = store.get(16);
       var objectStoreAnotherRequest = store.getAllKeys();
       //console.log (objectStoreRequest);
 
       objectStoreRequest.onsuccess = function () {
-        console.log('SUKCES!');
+        //console.log('OH SUKCES!', objectStoreRequest.result);
         that.setState({
           response: objectStoreRequest.result
         });
-        console.log(objectStoreRequest.result);
+        //console.log(objectStoreRequest.result);
       }
       objectStoreAnotherRequest.onsuccess = function () {
-        console.log('SUKCES2!');
+       // console.log('SUKCES2!');
         that.setState({
           list: objectStoreAnotherRequest.result
         });
-        console.log(objectStoreAnotherRequest);
+       // console.log(objectStoreAnotherRequest);
       }
     }
 
@@ -85,7 +86,7 @@ class App extends Component {
 
   deleteRecord(record) {
     var that = this;
-    console.log('still here');
+    //console.log('still here');
     let open = indexedDB.open('db-name', 1);
     open.onsuccess = function () {
       let db = open.result;
@@ -102,7 +103,7 @@ class App extends Component {
 
   addRecord(myRecord) {
     let myObj = myRecord;
-    console.log(myObj);
+   // console.log(myObj);
     /*
     if (myObj.model !== "Toyota") {
       myObj.recalled = "";
@@ -136,23 +137,40 @@ class App extends Component {
     }
   }
 
+  readRecord(myRecord){
+    let myObj = myRecord;
+    var that = this;
+    let open = indexedDB.open('db-name', 1);
+    open.onsuccess = function () {
+    let db = open.result;
+    let requestStore = db.transaction('objectStoreName').objectStore('objectStoreName');
+    let myRequest = requestStore.get(myObj);
+    myRequest.onsuccess = () => {
+      alert('RECORD READ');
+     // console.log(myRequest.result);
+      that.setState({formVis:1,addNewVis:1, subVis:0, mode:"read", response: myRequest.result});
+     // let myAnotherRequest = requestStore.getAllKeys();
+      //myAnotherRequest.onsuccess = () => {
+      //  that.setState({ list: myAnotherRequest.result });
+      }
+    }
+  }
+
   methods = (e, meth, myRecord = 0) => {
-    console.log(myRecord, meth, e);
+   // console.log(myRecord, meth, e);
     if (meth === "update") {
-      console.log('update');
     }
     else if (meth === "delete") {
       this.deleteRecord(myRecord);
     }
     else if (meth === "getForm") {
       this.setState({formVis:1,addNewVis:0, mode:"add"});
-      console.log('?????????');
     }
     else if (meth === "add") {
-      console.log('hogz');
-      console.log(e, meth, myRecord);
       this.addRecord(myRecord)
-
+    }
+    else if (meth === "read"){
+      this.readRecord(myRecord)
     }
 
   }

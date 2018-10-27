@@ -7,7 +7,7 @@ import {
 } from "reactstrap";
 
 const RecordList = ({ data, methods }) => {
-  console.log(data.list);
+  //console.log(data.list);
   return (
     <>
       <ListGroup style={{ textAlign: "left" }}>
@@ -17,12 +17,16 @@ const RecordList = ({ data, methods }) => {
               <span style={{ textTransform: "uppercase" }}>
                 entry no. {record}</span>
               <ButtonGroup size="sm" style={{ float: "right" }}>
-                <Button color="primary" onClick={(e)=>methods(e,'update',record)}>
+              <Button color="primary" onClick={(e)=>methods(e,'read',record)}>
+                  Read
+                </Button>
+                <Button color="primary" style={{backgroundColor:"#1ea3eb"}} onClick={(e)=>methods(e,'update',record)}>
                   Update
                 </Button>
                 <Button color="dark" onClick={(e)=>methods(e,'delete',record)}>
                   Delete
                 </Button>
+                
               </ButtonGroup>
             </ListGroupItem>
           );
