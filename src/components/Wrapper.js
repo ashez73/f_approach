@@ -1,23 +1,73 @@
-import React from 'react';
+import React, { Component } from 'react';
 import RecordList from './RecordList';
 import MyHeader from './MyHeader';
 import { Container } from "reactstrap";
 import AddNewRecordBtn from './AddNewRecordBtn'
 import MasterForm from '../containers/MasterForm';
-const Wrapper = ({data, methods})=>{
-  //console.log('vis', data.formVis);
-  return(
-    <>
-    <MyHeader/>
-    <main>
-    <Container style={{marginTop: "160px"}}>
-    <h1>{(data.list)}</h1>
-    <RecordList data={data} methods ={methods} />
-    {data.formVis?<MasterForm data={data} methods ={methods}/>:null}
-    <AddNewRecordBtn btAdd = {data.addNewVis} methods ={methods}/>
-    </Container>
-    </main>
-    </>
-  )
+class Wrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ownsCar: ' ',
+      buildingBuilt: '',
+      companyName: '',
+      model: '',
+      color: '',
+      wheels: '',
+      legal: '',
+      recalled: ''
+    }
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if (nextProps.data.response) {
+      return {
+        ownsCar: nextProps.data.response.ownsCar,
+        buildingBuilt: nextProps.data.response.buildingBuilt,
+        companyName: nextProps.data.response.companyName,
+        model: nextProps.data.response.model,
+        color: nextProps.data.response.color,
+        wheels: nextProps.data.response.wheels,
+        legal: nextProps.data.response.legal,
+        recalled: nextProps.data.response.recalled
+      };
+    }
+    else {
+      return null;
+    }
+  }
+  //wrapper methods -all form methods moved here
+  forumMethods() {
+
+    const setInput= (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    }
+  }
+
+  setInput = (e) => {
+    console.log (e.target.name, e.target.value);
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  processSubmit = (e) => {
+    e.preventDefault();
+    if (this.props.data.mode === "add") {
+      this.props.methods(e, "add", this.state)
+    }
+  }
+  render() {
+    return (
+      <>
+        <MyHeader />
+        <main>
+          <Container style={{ marginTop: "160px" }}>
+            <h1>{(this.props.data.list)}</h1>
+            <RecordList data={this.props.data} methods={this.props.methods} />
+  {this.props.data.formVis ? <MasterForm data={this.props.data} formData={this.state} setInput={this.setInput} processSubmit={this.processSubmit} methods = {this.forumMethods}/> : null}
+            <AddNewRecordBtn btAdd={this.props.data.addNewVis} methods={this.props.methods} />
+          </Container>
+        </main>
+      </>
+    )
+  }
 }
 export default Wrapper;
