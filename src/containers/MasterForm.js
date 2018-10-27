@@ -17,11 +17,7 @@ class MasterForm extends Component {
       recalled:''
     };
   }
-  toggleRadio = (e) => {
-    console.log(e.target.value);
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  setInputText = (e) => {
+  setInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
   processSubmit = (e) => {
@@ -37,20 +33,20 @@ class MasterForm extends Component {
         <Form style={{ textAlign: "left" }} onSubmit={this.processSubmit}>
           <Label>Do you own a car?</Label>
           <FormGroup check> <Label check>
-            <Input onChange={this.toggleRadio} type="radio" value="yes" checked={this.state.ownsCar === "yes"} name="ownsCar" required />
+            <Input onChange={this.setInput} type="radio" value="yes" checked={this.state.ownsCar === "yes"} name="ownsCar" required />
             YES
             </Label></FormGroup>
           <FormGroup check><Label check>
-            <Input onChange={this.toggleRadio} type="radio" value="no" checked={this.state.ownsCar === "no"} name="ownsCar" required />
+            <Input onChange={this.setInput} type="radio" value="no" checked={this.state.ownsCar === "no"} name="ownsCar" required />
             NO
             </Label></FormGroup>
-          <SubFormLv1 subState={this.state} updateForm={this.setInputText} updateRadio={this.toggleRadio} />
+          <SubFormLv1 subState={this.state} setInput={this.setInput}/>
           <FormGroup className="mgr"><Label for="building">What year was your building built?</Label>
-            <Input onChange={this.setInputText} type="number" name="buildingBuilt" placeholder="Enter number" value={this.state.buildingBuilt} required />
+            <Input onChange={this.setInput} type="number" name="buildingBuilt" placeholder="Enter number" value={this.state.buildingBuilt} required />
           </FormGroup>
           <FormGroup>
             <Label for="companyName">Company name</Label>
-            <Input onChange={this.setInputText} type="text" name="companyName" placeholder="Company name" value={this.state.companyName} required />
+            <Input onChange={this.setInput} type="text" name="companyName" placeholder="Company name" value={this.state.companyName} required />
           </FormGroup>
           <div style={{ textAlign: "center" }}>
             <Button color="primary">Submit</Button>
