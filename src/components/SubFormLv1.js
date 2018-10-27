@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { FormGroup, Label, Input } from "reactstrap";
 import SubFormLv2 from "./SubFormLv2";
 
 const SubFormLv1 = ({ subState, updateForm, updateRadio }) => {
@@ -7,20 +7,9 @@ const SubFormLv1 = ({ subState, updateForm, updateRadio }) => {
     <>
       <FormGroup className="mgr">
         <Label for="companyName">What is your car model?</Label>
-        <Input
-          onChange={updateForm}
-          type="text"
-          name="model"
-          id="cm"
-          placeholder="Car model"
-          value={subState.model}
-          required
-        />
+        <Input onChange={updateForm} type="text" name="model" placeholder="Car model" value={subState.model} required/>
       </FormGroup>
-      <SubFormLv2
-        subState={subState}
-        updateForm={updateForm}
-        updateRadio={updateRadio}
+      <SubFormLv2 subState={subState} updateForm={updateForm} updateRadio={updateRadio}
       />
     </>
   ) : null;

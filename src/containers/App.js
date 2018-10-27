@@ -33,7 +33,7 @@ class App extends Component {
       list: [],
       addNewVis: 1,
       formVis: 0,
-      mode:0,
+      mode:'none',
     };
   }
   componentDidMount() {
@@ -101,7 +101,9 @@ class App extends Component {
   }
 
   addRecord(myRecord) {
-    let myObj = myRecord
+    let myObj = myRecord;
+    console.log(myObj);
+    /*
     if (myObj.model !== "Toyota") {
       myObj.recalled = "";
     } else if (myObj.model !== "Ford") {
@@ -116,14 +118,16 @@ class App extends Component {
       myObj.recalled = "";
       myObj.legal = "";
     }
+    */
     var that = this;
     let open = indexedDB.open('db-name', 1);
     open.onsuccess = function () {
     let db = open.result;
       let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
-      let myRequest = requestStore.add({ taskTitle: "Walk dog", hours: 19, minutes: 30, day: 24, month: 'December', year: 2013, notified: "no" });
+      let myRequest = requestStore.add(myObj);
       myRequest.onsuccess = () => {
         alert('RECORD ADDED');
+        that.setState({formVis:0,addNewVis:1, mode:"none"});
         let myAnotherRequest = requestStore.getAllKeys();
         myAnotherRequest.onsuccess = () => {
           that.setState({ list: myAnotherRequest.result });
@@ -147,7 +151,7 @@ class App extends Component {
     else if (meth === "add") {
       console.log('hogz');
       console.log(e, meth, myRecord);
-      //this.addRecord(myRecord)
+      this.addRecord(myRecord)
 
     }
 

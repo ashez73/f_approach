@@ -7,53 +7,40 @@ class MasterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ownsCar: undefined,
+      ownsCar: '',
       buildingBuilt: '',
       companyName: '',
-      formVis: 0,
-
+      model: '',
     };
   }
-
   toggleRadio = (e) => {
     console.log(e.target.value);
     this.setState({ ownsCar: parseInt(e.target.value) });
   }
-
   setInputText = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
-  processSubmit=(e)=>{
-   
+  processSubmit = (e) => {
     e.preventDefault();
-    if (this.props.data.mode==="add"){
+    if (this.props.data.mode === "add") {
       console.log(this.props.data.mode)
-      this.props.methods(e, "add",this.state)
+      this.props.methods(e, "add", this.state)
     }
   }
-
   render() {
     return (
-    
       <div>
-        
         <Form style={{ textAlign: "left" }} onSubmit={this.processSubmit}>
           <Label>Do you own a car?</Label>
           <FormGroup check> <Label check>
-            <Input onChange={this.toggleRadio} type="radio" value="1" checked={this.state.ownsCar===1} name="ownsCar" required />
+            <Input onChange={this.toggleRadio} type="radio" value="1" checked={this.state.ownsCar === 1} name="ownsCar" required />
             YES
             </Label></FormGroup>
           <FormGroup check><Label check>
-            <Input onChange={this.toggleRadio} type="radio" value="0" checked={this.state.ownsCar===0} name="ownsCar" required />
+            <Input onChange={this.toggleRadio} type="radio" value="0" checked={this.state.ownsCar === 0} name="ownsCar" required />
             NO
             </Label></FormGroup>
-          {/*
-          <SubFormLv1
-            subState={()=>console.log('change')}
-            updateForm={()=>console.log('change')}
-            updateRadio={()=>console.log('change')}
-          />
-          */}
+          <SubFormLv1 subState={this.state} updateForm={this.setInputText} updateRadio={this.toggleRadio} />
           <FormGroup className="mgr"><Label for="building">What year was your building built?</Label>
             <Input onChange={this.setInputText} type="number" name="buildingBuilt" placeholder="Enter number" value={this.state.buildingBuilt} required />
           </FormGroup>
