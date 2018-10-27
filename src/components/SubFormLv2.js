@@ -6,7 +6,7 @@ const SubFormLv2 = ({ subState, updateForm, updateRadio }) => {
     return (
       <>
         <FormGroup className="mgr"><Label for="color">What color is your Ford?</Label>
-          <Input onChange={updateForm} type="text" name="color" placeholder="Car color" value={subState.color} required />
+          <Input onChange={updateForm} type="text" name="color" placeholder="Yout Ford's color" value={subState.color} required />
         </FormGroup>
         <FormGroup className="mgr"><Label for="wheels">How many wheels on your Ford?</Label>
           <Input onChange={updateForm} type="number" name="wheels" placeholder="Number of wheels" value={subState.wheels} required />
@@ -20,13 +20,13 @@ const SubFormLv2 = ({ subState, updateForm, updateRadio }) => {
         <Label>Has your Toyota been recalled?</Label>
         <FormGroup className="mgr" check>
           <Label check>
-            <Input onChange={updateRadio} type="radio" value="1" checked={subState.recalled} name="recalled" required />
+            <Input onChange={updateRadio} type="radio" value="yes" checked={subState.recalled==="yes"} name="recalled" required />
             YES
         </Label>
         </FormGroup>
         <FormGroup check>
           <Label check>
-            <Input onChange={updateRadio} type="radio" value="0" checked={!subState.recalled} name="recalled" required />
+            <Input onChange={updateRadio} type="radio" value="no" checked={subState.recalled==="no"} name="recalled" required />
             NO
       </Label>
         </FormGroup>

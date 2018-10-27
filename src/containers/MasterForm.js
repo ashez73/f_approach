@@ -11,11 +11,15 @@ class MasterForm extends Component {
       buildingBuilt: '',
       companyName: '',
       model: '',
+      color: '',
+      wheels:'',
+      legal:'',
+      recalled:''
     };
   }
   toggleRadio = (e) => {
     console.log(e.target.value);
-    this.setState({ ownsCar: parseInt(e.target.value) });
+    this.setState({ [e.target.name]: e.target.value });
   }
   setInputText = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -33,11 +37,11 @@ class MasterForm extends Component {
         <Form style={{ textAlign: "left" }} onSubmit={this.processSubmit}>
           <Label>Do you own a car?</Label>
           <FormGroup check> <Label check>
-            <Input onChange={this.toggleRadio} type="radio" value="1" checked={this.state.ownsCar === 1} name="ownsCar" required />
+            <Input onChange={this.toggleRadio} type="radio" value="yes" checked={this.state.ownsCar === "yes"} name="ownsCar" required />
             YES
             </Label></FormGroup>
           <FormGroup check><Label check>
-            <Input onChange={this.toggleRadio} type="radio" value="0" checked={this.state.ownsCar === 0} name="ownsCar" required />
+            <Input onChange={this.toggleRadio} type="radio" value="no" checked={this.state.ownsCar === "no"} name="ownsCar" required />
             NO
             </Label></FormGroup>
           <SubFormLv1 subState={this.state} updateForm={this.setInputText} updateRadio={this.toggleRadio} />
