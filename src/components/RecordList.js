@@ -7,6 +7,9 @@ import {
 } from "reactstrap";
 
 const RecordList = ({ state, listManageMethods }) => {
+  if (state.list.length===0){
+    return <h2>Database empty! Add your first record!</h2>
+  } 
   return (
     <>
       <ListGroup style={{ textAlign: "left" }}>
