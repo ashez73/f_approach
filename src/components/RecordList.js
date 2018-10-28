@@ -16,13 +16,13 @@ const RecordList = ({ state, listManageMethods }) => {
               <span style={{ textTransform: "uppercase" }}>
                 entry no. {record}</span>
               <ButtonGroup size="sm" style={{ float: "right" }}>
-                <Button color="primary" onClick={(e) => listManageMethods(e, 'read', record)}>
+                <Button color="primary" onClick={(e) => listManageMethods(e, record)}>
                   Read
                 </Button>
-                <Button color="primary" style={{ backgroundColor: "#1ea3eb" }} onClick={(e) => listManageMethods(e, 'update', record)}>
+                <Button color="primary" style={{ backgroundColor: "#1ea3eb" }} onClick={(e) => listManageMethods(e, record)}>
                   Update
                 </Button>
-                <Button color="dark" onClick={(e) => listManageMethods(e, 'delete', record)}>
+                <Button color="dark" onClick={(e) => listManageMethods(e, record)}>
                   Delete
                 </Button>
               </ButtonGroup>

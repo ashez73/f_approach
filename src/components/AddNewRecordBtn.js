@@ -9,7 +9,7 @@ const AddNewRecordBtn = (props) => {
         color="primary"
         type="button"
         style={{ margin: "20px" }}
-        onClick={showForm}>
+        onClick={()=>showForm("add")}>
         Add New Record
       </Button>
     </div>
