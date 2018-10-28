@@ -11,3 +11,5 @@ It is made to convince YOU to give me a chance as professional developer. My REA
  - [X]Create a fully functionning solution,
  - [ ] Handle blobbing errors,
  - [ ] Ensure database functionality with multiple users acesssing the base in different time.
+ - [ ] Relatively low complexity of state management does not warrant usage of Redux, yet I might give it a go to show capabillity in doing so.
+ - [ ] Favicon. Come on, really  that's low priority task will you persecute me becuase of IT?
