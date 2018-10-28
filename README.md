@@ -8,6 +8,6 @@ This app was supposed to be sleek and fast responsible solution to using indexed
 It is made to convince YOU to give me a chance as professional developer. My REACT learning speed is lighting fast, just give me a freaking CHANCE.
 
 ### TODO
-- [x]Create a fully functionaning solution,
+- Create a fully functionning solution,
  - [ ] Handle blobbing errors,
  - [ ] Ensure database functionality with multiple users 
