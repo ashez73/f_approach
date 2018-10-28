@@ -10,4 +10,4 @@ It is made to convince YOU to give me a chance as professional developer. My REA
 ### TODO
  - [X]Create a fully functionning solution,
  - [ ] Handle blobbing errors,
- - [ ] Ensure database functionality with multiple users 
+ - [ ] Ensure database functionality with multiple users acesssing the base in different time.
