@@ -6,27 +6,25 @@ import {
   ButtonGroup,
 } from "reactstrap";
 
-const RecordList = ({ data, methods }) => {
-  //console.log(data.list);
+const RecordList = ({ state, listManageMethods }) => {
   return (
     <>
       <ListGroup style={{ textAlign: "left" }}>
-        {data.list.map(record => {
+        {state.list.map(record => {
           return (
             <ListGroupItem className="justify-content-between " key={record}>
               <span style={{ textTransform: "uppercase" }}>
                 entry no. {record}</span>
               <ButtonGroup size="sm" style={{ float: "right" }}>
-              <Button color="primary" onClick={(e)=>methods(e,'read',record)}>
+                <Button color="primary" onClick={(e) => listManageMethods(e, 'read', record)}>
                   Read
                 </Button>
-                <Button color="primary" style={{backgroundColor:"#1ea3eb"}} onClick={(e)=>methods(e,'update',record)}>
+                <Button color="primary" style={{ backgroundColor: "#1ea3eb" }} onClick={(e) => listManageMethods(e, 'update', record)}>
                   Update
                 </Button>
-                <Button color="dark" onClick={(e)=>methods(e,'delete',record)}>
+                <Button color="dark" onClick={(e) => listManageMethods(e, 'delete', record)}>
                   Delete
                 </Button>
-                
               </ButtonGroup>
             </ListGroupItem>
           );

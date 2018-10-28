@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "reactstrap";
 
-const AddNewRecordBtn = ({ btAdd, showForm }) => {
-  return (btAdd === 0) ? null : (
+const AddNewRecordBtn = (props) => {
+  const { state, showForm } = props;
+  return (state.addNewVis === 0) ? null : (
     <div>
       <Button
         color="primary"

@@ -34,38 +34,29 @@ putSomeData()
 class App extends Component {
   constructor(props) {
     super(props);
-    this.getList = this.getList.bind(this);
     this.state = {
-      response: {
-        ownsCar: ' ',
-        buildingBuilt: '',
-        companyName: '',
-        model: '',
-        color: '',
-        wheels: '',
-        legal: '',
-        recalled: ''
-      },
       list: [],
       addNewVis: 1,
       formVis: 0,
       subVis: 1,
       mode: 'none',
+      ownsCar: '',
+      buildingBuilt: '',
+      companyName: '',
+      model: '',
+      color: '',
+      wheels: '',
+      legal: '',
+      recalled: ''
     };
   }
   componentDidMount() {
-
     this.getList();
-
-    //this.time();
-    //this.upd();
   }
 
-  getList() {
-    var that = this;
-    // console.log("getting list");
+  getList = () => {
     let open = indexedDB.open('db-name', 1);
-    open.onsuccess = function () {
+    open.onsuccess = () => {
       let db = open.result;
       let tx = db.transaction('objectStoreName', 'readwrite');
       let store = tx.objectStore('objectStoreName');
@@ -73,16 +64,16 @@ class App extends Component {
       var objectStoreAnotherRequest = store.getAllKeys();
       //console.log (objectStoreRequest);
 
-      objectStoreRequest.onsuccess = function () {
+      objectStoreRequest.onsuccess = () => {
         //console.log('OH SUKCES!', objectStoreRequest.result);
-        that.setState({
+        this.setState({
           response: objectStoreRequest.result
         });
         //console.log(objectStoreRequest.result);
       }
-      objectStoreAnotherRequest.onsuccess = function () {
+      objectStoreAnotherRequest.onsuccess = () => {
         // console.log('SUKCES2!');
-        that.setState({
+        this.setState({
           list: objectStoreAnotherRequest.result
         });
         // console.log(objectStoreAnotherRequest);
@@ -145,47 +136,41 @@ class App extends Component {
     }
   }
 
-  readRecord(myRecord) {
+  readRecord = (myRecord, update = false) => {
     let myObj = myRecord;
-    var that = this;
     let open = indexedDB.open('db-name', 1);
-    open.onsuccess = function () {
+    open.onsuccess = () => {
       let db = open.result;
       let requestStore = db.transaction('objectStoreName').objectStore('objectStoreName');
       let myRequest = requestStore.get(myObj);
       myRequest.onsuccess = () => {
         alert('RECORD READ');
-        // console.log(myRequest.result);
-        that.setState({
-          formVis: 1,
-          addNewVis: 1,
-          subVis: 0,
-          mode: "read",
+        let displayMode = update ? [1, 0, 1, "update"] : [1, 1, 0, "read"];
+        this.setState({
+          formVis: displayMode[0],
+          addNewVis: displayMode[1],
+          subVis: displayMode[2],
+          mode: displayMode[3],
           response: myRequest.result
         });
-        // let myAnotherRequest = requestStore.getAllKeys();
-        //myAnotherRequest.onsuccess = () => {
-        //  that.setState({ list: myAnotherRequest.result });
       }
     }
   }
 
-  updateRecord(myRecord) {
-    let myObj = myRecord;
-    var that = this;
+  updateRecord = (myRecord) => {
+    let myObj = myRecord[1];
     let open = indexedDB.open('db-name', 1);
-    open.onsuccess = function () {
+    open.onsuccess = () => {
       let db = open.result;
       let requestStore = db.transaction('objectStoreName').objectStore('objectStoreName');
       let myRequest = requestStore.put(myObj);
       myRequest.onsuccess = () => {
-        alert('RECORD READ');
-        // console.log(myRequest.result);
-        that.setState({
+        alert('RECORD UPDATED');
+        this.setState({
           formVis: 1,
           addNewVis: 1,
           subVis: 0,
-          mode: "read",
+          mode: "update",
           response: myRequest.result
         });
         // let myAnotherRequest = requestStore.getAllKeys();
@@ -195,16 +180,16 @@ class App extends Component {
     }
   }
 
+  showForm = () => {
 
-  showForm=()=> {
     this.setState({
       formVis: 1,
       addNewVis: 0,
-      mode: "add"
+      mode: "add",
     })
   }
-  
-  methods = (e, meth, myRecord = 0) => {
+
+  listManageMethods = (e, meth, myRecord = 0) => {
     // console.log(myRecord, meth, e);
     if (meth === "update") {
       this.updateRecord(myRecord)
@@ -214,6 +199,7 @@ class App extends Component {
       this.setState({
         formVis: 1,
         addNewVis: 0,
+        subVis: 1,
         mode: "add"
       });
     } else if (meth === "add") {
@@ -231,7 +217,6 @@ class App extends Component {
       formVis: 1
     });
   }
-
   toggleAddButtonVisibility() {
     this.state.addNewVis ? this.setState({
       addNewVis: 0
@@ -240,17 +225,23 @@ class App extends Component {
     });
   }
 
+  setInput = (e) => {
+    console.log(e.target.name, e.target.value);
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
+  processSubmit = (e) => {
+    e.preventDefault();
+    if (this.props.data.mode === "add") {
+      this.props.methods(e, "add", this.state)
+    }
+  }
   render() {
-    // ==this.getList();
-    //this.time();
-
     return (
       <div className="App" >
-        <Wrapper data={this.state} methods={this.methods} showForm={this.showForm}/>
+        <Wrapper state={this.state} showForm={this.showForm} readRecord={this.readRecord} updateRecord={this.updateRecord} deleteRecord={this.deleteRecord} createRecord={this.creareRecord} setInput={this.setInput} processSubmit={this.processSubmit} listManageMethods={this.listManageMethods} />
       </div>
     );
   }
 }
-
 export default App;
