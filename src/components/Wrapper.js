@@ -8,7 +8,7 @@ class Wrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ownsCar: ' ',
+      ownsCar: '',
       buildingBuilt: '',
       companyName: '',
       model: '',
@@ -37,15 +37,9 @@ class Wrapper extends Component {
     }
   }
   //wrapper methods -all form methods moved here
-  forumMethods() {
-
-    const setInput= (e) => {
-      this.setState({ [e.target.name]: e.target.value });
-    }
-  }
 
   setInput = (e) => {
-    console.log (e.target.name, e.target.value);
+    console.log(e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
   processSubmit = (e) => {
@@ -54,6 +48,8 @@ class Wrapper extends Component {
       this.props.methods(e, "add", this.state)
     }
   }
+  //opening form
+  
   render() {
     return (
       <>
@@ -62,8 +58,8 @@ class Wrapper extends Component {
           <Container style={{ marginTop: "160px" }}>
             <h1>{(this.props.data.list)}</h1>
             <RecordList data={this.props.data} methods={this.props.methods} />
-  {this.props.data.formVis ? <MasterForm data={this.props.data} formData={this.state} setInput={this.setInput} processSubmit={this.processSubmit} methods = {this.forumMethods}/> : null}
-            <AddNewRecordBtn btAdd={this.props.data.addNewVis} methods={this.props.methods} />
+            {this.props.data.formVis ? <MasterForm data={this.props.data} formData={this.state} setInput={this.setInput} processSubmit={this.processSubmit} /> : null}
+            <AddNewRecordBtn btAdd={this.props.data.addNewVis} showForm={this.props.showForm} />
           </Container>
         </main>
       </>

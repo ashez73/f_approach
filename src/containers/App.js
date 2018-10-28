@@ -196,8 +196,14 @@ class App extends Component {
   }
 
 
-
-
+  showForm=()=> {
+    this.setState({
+      formVis: 1,
+      addNewVis: 0,
+      mode: "add"
+    })
+  }
+  
   methods = (e, meth, myRecord = 0) => {
     // console.log(myRecord, meth, e);
     if (meth === "update") {
@@ -239,16 +245,10 @@ class App extends Component {
     // ==this.getList();
     //this.time();
 
-    return ( < div className = "App" >
-      <
-      Wrapper data = {
-        this.state
-      }
-      methods = {
-        this.methods
-      }
-      /> <
-      /div>
+    return (
+      <div className="App" >
+        <Wrapper data={this.state} methods={this.methods} showForm={this.showForm}/>
+      </div>
     );
   }
 }
