@@ -12,7 +12,7 @@ const RecordList = ({ state, listManageMethods }) => {
       <ListGroup style={{ textAlign: "left" }}>
         {state.list.map(record => {
           return (
-            <ListGroupItem className="justify-content-between " key={record}>
+            <ListGroupItem className="justify-content-between " style={record !== state.recStore?{backgroundColor: "white"}:{backgroundColor: "#f8f8f8"}} key={record}>
               <span style={{ textTransform: "uppercase" }}>
                 entry no. {record}</span>
               <ButtonGroup size="sm" style={{ float: "right" }}>

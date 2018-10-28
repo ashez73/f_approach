@@ -5,7 +5,7 @@ import SubFormLv1 from "./SubFormLv1";
 
 const MasterForm = (props) => {
   const { state, setInput, processSubmit } = props;
-  console.log ('MODE IS:' , state.mode);
+  console.log ("SUBVIS IS: " ,state.subVis, "OWNS_CAR:", state.ownsCar);
   return (
     <div>
       <h5>mode: <Badge color="secondary">{state.mode}</Badge></h5>

@@ -3,6 +3,9 @@ import React, {
 } from 'react';
 import './App.css';
 import Wrapper from '../components/Wrapper';
+const DB_NAME = "sky";
+const DB_VERSION = 1;
+const DB_STORE_NAME = "store";
 
 
 if (!('indexedDB' in window)) {
@@ -35,7 +38,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected:'',
+      recStore:'',
       list: [],
       addNewVis: 1,
       formVis: 0,
@@ -135,7 +138,7 @@ class App extends Component {
       let db = open.result;
       let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
       let myRequest;
-      myRequest = myMode==="add"?requestStore.add(myObj):requestStore.put(myObj,);
+      myRequest = myMode==="add"?requestStore.add(myObj):requestStore.put(myObj,this.state.recStore);
 
       myRequest.onsuccess = () => {
         alert('RECORD ADDED/UPDATED');
@@ -215,13 +218,36 @@ class App extends Component {
       }
     }
   }
+  purgeState=()=>{
+    console.log('PURGING')
+    let myObj = {...this.state};
+    console.log(myObj)
+    
+    let counter = 0;
+    for (let key in myObj){
+      if (counter >=6){
+      myObj[key]='';
+      }
+    counter++;
+    }
+   return myObj;
+  }
+
 
   showForm = (opMode) => {
+  console.log('WAS CLICKED', opMode);
+  
     this.setState({
       formVis: 1,
       addNewVis: 0,
-      mode: opMode,
-    })
+      mode: "add",
+      subVis:1,...this.purgeState()
+    });
+     /*hotfix to potential purge problem
+     rebuilding state to desired condition*/
+    this.setState({mode:"add", subVis:1, addNewVis:0, formVis:1})
+
+   
   }
 
   listManageMethods = (e, data = 0) => {
@@ -232,9 +258,12 @@ class App extends Component {
     else if (e.target.innerHTML === "Update") {
       /*not the real update yet, just reading and setting up form
       probably I should unify naming conventions*/
+
+      this.setState({recStore: data});
       this.readRecord(e, data, "update");
     }
     else {
+      this.setState({recStore: data});
       this.readRecord(e, data, "read");
     }
   };
@@ -272,7 +301,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" >
-        <Wrapper state={this.state} showForm={this.showForm} readRecord={this.readRecord} updateRecord={this.updateRecord} deleteRecord={this.deleteRecord} createRecord={this.creareRecord} setInput={this.setInput} processSubmit={this.processSubmit} listManageMethods={this.listManageMethods} />
+        <Wrapper state={this.state} mydb ={[DB_NAME, DB_STORE_NAME, DB_VERSION]} showForm={this.showForm} readRecord={this.readRecord} updateRecord={this.updateRecord} deleteRecord={this.deleteRecord} createRecord={this.creareRecord} setInput={this.setInput} processSubmit={this.processSubmit} listManageMethods={this.listManageMethods} />
       </div>
     );
   }
