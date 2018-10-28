@@ -10,7 +10,6 @@ const DB_STORE_NAME = "store";
 if (!('indexedDB' in window)) {
   console.log('This browser doesn\'t support IndexedDB');
 }
-
 function putInitData() {
   let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
   let open = indexedDB.open('db-name', 1)
@@ -22,7 +21,6 @@ function putInitData() {
   }
 }
 putInitData()
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +44,6 @@ class App extends Component {
   componentDidMount() {
     this.getList();
   }
-
   getList = () => {
     let open = indexedDB.open('db-name', 1);
     open.onsuccess = () => {
@@ -110,7 +107,6 @@ class App extends Component {
       let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
       let myRequest;
       myRequest = myMode === "add" ? requestStore.add(myObj) : requestStore.put(myObj, this.state.recStore);
-
       myRequest.onsuccess = () => {
         alert('RECORD ADDED/UPDATED');
         this.setState({

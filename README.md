@@ -1,10 +1,10 @@
-## Table of Contents
+## Intro
 
 This application has been built as a recruitemt task. Thanks to @Agnieszka Dombrowska: patient and awesome recruiter for motivating me to complete it despite my personal problems and SEVERE lack of time.
 
 ### Application
 
-This app was supposed to be sleek and fast responsible solution to using indexedDB. It runs well, fast and looks good on variety of devices.
+This app was supposed to be sleek and fast responsible solution to using indexedDB. It runs well, fast and looks good on variety of devices. It uses a single form to acesss create/read/update data with variety of states and variables.
 It is made to convince YOU to give me a chance as professional developer. My REACT learning speed is lighting fast, just give me a freaking CHANCE.
 
 ### TODO
@@ -20,3 +20,12 @@ It is made to convince YOU to give me a chance as professional developer. My REA
 
 As usual: Create-React-App: an awesome library that provides webpack-babel functionality for you: go develop freestyle React instead of ploughing through npm:-)
 Thanks guys.
+
+### Deployment
+
+To deploy build version LOCALLY use:
+***
+ npm install-g pushstate-server
+ (as with any create-react-app)
+ pushstate-server build
+ open http://localhost:9000
