@@ -70,6 +70,10 @@ class App extends Component {
           this.setState({
             list: myAnotherRequest.result
           });
+          this.setState({addNewVis: 1,
+            formVis: 0,
+            subVis: 1,
+            mode: 'none',...this.purgeState()})
         }
       }
     }
