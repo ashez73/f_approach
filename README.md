@@ -23,11 +23,21 @@ This app was supposed to be sleek and fast responsible solution to using indexed
 As usual: Create-React-App: an awesome library that provides webpack-babel functionality for you: go develop freestyle React instead of ploughing through npm:-)
 Thanks guys.
 
-### Deployment
+### Deployment and Running
+To run development version:
+-install node.js
+-copy/clone this repo 
+-npm install (to install dependencies)
+-npm start (to run local server)
 
 To deploy build version LOCALY use:
-***
+
  npm install-g pushstate-server
  (as with any create-react-app)
  pushstate-server build
  open http://localhost:9000
+OR
+npm install -g serve
+serve -s build
+OR
+any static file server should work
