@@ -11,6 +11,7 @@ This app was supposed to be sleek and fast responsible solution to using indexed
  - [x] Create a fully functionning solution,
  - [ ] Fix naming conventions,
  - [ ] Handle errors,
+ - [ ] Better handle display of large amount of records,
  - [ ] Refactor database integration so it is more compact and DRY,
  - [ ] Introduce form-field validation,
  - [ ] Ensure database functionality with multiple users acesssing the base in different time.
@@ -32,12 +33,13 @@ To run development version:
 
 To deploy build version LOCALY use:
 
- npm install-g pushstate-server
- (as with any create-react-app)
- pushstate-server build
- open http://localhost:9000
-OR
-npm install -g serve
-serve -s build
-OR
-any static file server should work
+npm install-g pushstate-server  
+(as with any create-react-app)  
+pushstate-server build  
+open http://localhost:9000  
+OR  
+npm install -g serve  
+serve -s build  
+open http://localhost:5000  
+OR  
+any static file server should work  
