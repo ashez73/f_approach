@@ -50,24 +50,15 @@ class App extends Component {
       let db = open.result;
       let tx = db.transaction(DB_STORE_NAME, 'readwrite');
       let store = tx.objectStore(DB_STORE_NAME);
-      var objectStoreRequest = store.get(16);
-      var objectStoreAnotherRequest = store.getAllKeys();
-
+      let objectStoreRequest = store.getAllKeys();
       objectStoreRequest.onsuccess = () => {
         this.setState({
-          response: objectStoreRequest.result
-        });
-      }
-      objectStoreAnotherRequest.onsuccess = () => {
-        this.setState({
-          list: objectStoreAnotherRequest.result
+          list: objectStoreRequest.result
         });
       }
     }
   }
   deleteRecord(record) {
-    var that = this;
-    //console.log('still here');
     let open = indexedDB.open(DB_NAME, DB_VERSION);
     open.onsuccess = function () {
       let db = open.result;
@@ -76,7 +67,7 @@ class App extends Component {
       myRequest.onsuccess = () => {
         let myAnotherRequest = requestStore.getAllKeys();
         myAnotherRequest.onsuccess = () => {
-          that.setState({
+          this.setState({
             list: myAnotherRequest.result
           });
         }
@@ -138,10 +129,7 @@ class App extends Component {
     }
   }
   purgeState = () => {
-    console.log('PURGING')
     let myObj = { ...this.state };
-    console.log(myObj)
-
     let counter = 0;
     for (let key in myObj) {
       if (counter >= 6) {
@@ -152,8 +140,6 @@ class App extends Component {
     return myObj;
   }
   showForm = (opMode) => {
-    console.log('WAS CLICKED', opMode);
-
     this.setState({
       formVis: 1,
       addNewVis: 0,
