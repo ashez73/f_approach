@@ -58,9 +58,9 @@ class App extends Component {
       }
     }
   }
-  deleteRecord(record) {
+  deleteRecord=(record)=> {
     let open = indexedDB.open(DB_NAME, DB_VERSION);
-    open.onsuccess = function () {
+    open.onsuccess = () =>{
       let db = open.result;
       let requestStore = db.transaction(DB_STORE_NAME, "readwrite").objectStore(DB_STORE_NAME);
       let myRequest = requestStore.delete(record);
