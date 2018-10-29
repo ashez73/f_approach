@@ -12,10 +12,10 @@ if (!('indexedDB' in window)) {
 }
 function putInitData() {
   let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
-  let open = indexedDB.open('db-name', 1)
+  let open = indexedDB.open(DB_NAME, DB_VERSION)
   open.onupgradeneeded = function () {
     let db = open.result
-    db.createObjectStore('objectStoreName', {
+    db.createObjectStore(DB_STORE_NAME, {
       autoIncrement: true
     });
   }
@@ -45,11 +45,11 @@ class App extends Component {
     this.getList();
   }
   getList = () => {
-    let open = indexedDB.open('db-name', 1);
+    let open = indexedDB.open(DB_NAME, DB_VERSION);
     open.onsuccess = () => {
       let db = open.result;
-      let tx = db.transaction('objectStoreName', 'readwrite');
-      let store = tx.objectStore('objectStoreName');
+      let tx = db.transaction(DB_STORE_NAME, 'readwrite');
+      let store = tx.objectStore(DB_STORE_NAME);
       var objectStoreRequest = store.get(16);
       var objectStoreAnotherRequest = store.getAllKeys();
 
@@ -68,10 +68,10 @@ class App extends Component {
   deleteRecord(record) {
     var that = this;
     //console.log('still here');
-    let open = indexedDB.open('db-name', 1);
+    let open = indexedDB.open(DB_NAME, DB_VERSION);
     open.onsuccess = function () {
       let db = open.result;
-      let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
+      let requestStore = db.transaction(DB_STORE_NAME, "readwrite").objectStore(DB_STORE_NAME);
       let myRequest = requestStore.delete(record);
       myRequest.onsuccess = () => {
         let myAnotherRequest = requestStore.getAllKeys();
@@ -101,10 +101,10 @@ class App extends Component {
         }
       }
     };
-    let open = indexedDB.open('db-name', 1);
+    let open = indexedDB.open(DB_NAME, DB_VERSION);
     open.onsuccess = () => {
       let db = open.result;
-      let requestStore = db.transaction('objectStoreName', "readwrite").objectStore('objectStoreName');
+      let requestStore = db.transaction(DB_STORE_NAME, "readwrite").objectStore(DB_STORE_NAME);
       let myRequest;
       myRequest = myMode === "add" ? requestStore.add(myObj) : requestStore.put(myObj, this.state.recStore);
       myRequest.onsuccess = () => {
@@ -126,10 +126,10 @@ class App extends Component {
   readRecord = (e, data, mymode) => {
     let sub = mymode === "read" ? 0 : 1;
     let myObj = data;
-    let open = indexedDB.open('db-name', 1);
+    let open = indexedDB.open(DB_NAME, DB_VERSION);
     open.onsuccess = () => {
       let db = open.result;
-      let requestStore = db.transaction('objectStoreName').objectStore('objectStoreName');
+      let requestStore = db.transaction(DB_STORE_NAME).objectStore(DB_STORE_NAME);
       let myRequest = requestStore.get(myObj);
       myRequest.onsuccess = () => {
         alert('RECORD RETRIEVED');
