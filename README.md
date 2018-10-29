@@ -8,7 +8,7 @@ This app was supposed to be sleek and fast responsible solution to using indexed
 
 
 ### TODO
- - [x]Create a fully functionning solution,
+ - [x] Create a fully functionning solution,
  - [ ] Fix naming conventions,
  - [ ] Handle errors,
  - [ ] Introduce form-field validation,
@@ -24,7 +24,7 @@ Thanks guys.
 
 ### Deployment
 
-To deploy build version LOCALLY use:
+To deploy build version LOCALY use:
 ***
  npm install-g pushstate-server
  (as with any create-react-app)
