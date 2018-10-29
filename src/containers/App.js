@@ -151,7 +151,6 @@ class App extends Component {
     this.setState({ mode: "add", subVis: 1, addNewVis: 0, formVis: 1 })
   }
   listManageMethods = (e, data = 0) => {
-    console.log("ATTEMPTING TO CHANGE:", e.target.innerHTML);
     if (e.target.innerHTML === "Delete") {
       this.deleteRecord(data)
     }
@@ -168,12 +167,10 @@ class App extends Component {
     }
   };
   setInput = (e) => {
-    console.log(e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
   processSubmit = (e, opMode) => {
     e.preventDefault();
-    console.log('ATTEMPTING TO ADD');
     /*And similary this method will 
     cater both to adding a record and
     updating it*/
