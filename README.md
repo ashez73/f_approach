@@ -9,6 +9,7 @@ This app was supposed to be sleek and fast responsible solution to using indexed
 
 ### TODO
  - [x] Create a fully functionning solution,
+ - [x] Added the context API,
  - [ ] Fix naming conventions,
  - [ ] Handle errors,
  - [ ] Better handle display of large amount of records,
