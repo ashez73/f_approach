@@ -4,22 +4,34 @@ import MyHeader from './MyHeader';
 import { Container } from "reactstrap";
 import AddNewRecordBtn from './AddNewRecordBtn'
 import MasterForm from './MasterForm';
+import { NameContext } from '../containers/App'
+console.log(NameContext);
 
-const Wrapper = (props) => {
-  const { state, showForm, listManageMethods, setInput, processSubmit, mydb, } = props;
-  return (
-    <>
-      <MyHeader />
-      <main>
-        <Container style={{ marginTop: "160px" }}>
-          <h5>DATABASE: {mydb[0]} v.{mydb[2]}</h5>
-          <h6>STORE: {mydb[1]}</h6>
-          <RecordList state={state} listManageMethods={listManageMethods} />
-          {state.formVis ? <MasterForm setInput={setInput} state={state} processSubmit={processSubmit} /> : null}
-          <AddNewRecordBtn state={state} showForm={showForm} />
-        </Container>
-      </main>
-    </>
-  )
+class Wrapper extends React.Component {
+  constructor() {
+    super();
+    let name = this.NameContext;
+    console.log(name);
+    console.log(name);
+  }
+  static contextType = NameContext;
+  render() {
+    return (
+      <>
+        <MyHeader />
+        <main>
+          <Container style={{ marginTop: "160px" }}>
+          <NameContext.Consumer>
+          {name => (<div><h3>{name[0]} v: {name[1]}</h3>
+          <h5>store: {name[2]}</h5></div>)}
+          </NameContext.Consumer>
+            <RecordList state={this.props.state} listManageMethods={this.props.listManageMethods} />
+            {this.props.state.formVis ? <MasterForm setInput={this.props.setInput} state={this.props.state} processSubmit={this.props.processSubmit} /> : null}
+            <AddNewRecordBtn state={this.props.state} showForm={this.props.showForm} />
+          </Container>
+        </main>
+      </>
+    )
+  }
 }
 export default Wrapper;

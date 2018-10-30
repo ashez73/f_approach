@@ -6,6 +6,7 @@ import Wrapper from '../components/Wrapper';
 const DB_NAME = "sky";
 const DB_VERSION = 1;
 const DB_STORE_NAME = "store";
+export const NameContext = React.createContext([DB_NAME, DB_VERSION, DB_STORE_NAME]);
 
 if (!('indexedDB' in window)) {
   console.log('This browser doesn\'t support IndexedDB');
@@ -183,7 +184,10 @@ class App extends Component {
   render() {
     return (
       <div className="App" >
+   
         <Wrapper state={this.state} mydb={[DB_NAME, DB_STORE_NAME, DB_VERSION]} showForm={this.showForm} readRecord={this.readRecord} updateRecord={this.updateRecord} deleteRecord={this.deleteRecord} createRecord={this.creareRecord} setInput={this.setInput} processSubmit={this.processSubmit} listManageMethods={this.listManageMethods} />
+ 
+
       </div>
     );
   }
