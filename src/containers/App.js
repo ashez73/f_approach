@@ -59,9 +59,9 @@ class App extends Component {
       }
     }
   }
-  deleteRecord=(record)=> {
+  deleteRecord = (record) => {
     let open = indexedDB.open(DB_NAME, DB_VERSION);
-    open.onsuccess = () =>{
+    open.onsuccess = () => {
       let db = open.result;
       let requestStore = db.transaction(DB_STORE_NAME, "readwrite").objectStore(DB_STORE_NAME);
       let myRequest = requestStore.delete(record);
@@ -71,10 +71,12 @@ class App extends Component {
           this.setState({
             list: myAnotherRequest.result
           });
-          this.setState({addNewVis: 1,
+          this.setState({
+            addNewVis: 1,
             formVis: 0,
             subVis: 1,
-            mode: 'none',...this.purgeState()})
+            mode: 'none', ...this.purgeState()
+          })
         }
       }
     }
@@ -184,10 +186,7 @@ class App extends Component {
   render() {
     return (
       <div className="App" >
-   
         <Wrapper state={this.state} mydb={[DB_NAME, DB_STORE_NAME, DB_VERSION]} showForm={this.showForm} readRecord={this.readRecord} updateRecord={this.updateRecord} deleteRecord={this.deleteRecord} createRecord={this.creareRecord} setInput={this.setInput} processSubmit={this.processSubmit} listManageMethods={this.listManageMethods} />
- 
-
       </div>
     );
   }
