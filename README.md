@@ -12,7 +12,7 @@ This app was supposed to be sleek and fast responsible solution to using indexed
  - [x] Added the context API,
  - [ ] Fix naming conventions,
  - [ ] Handle errors,
- - [ ] Better handle display of large amount of records,
+ - [x] Better handle display of large amount of records,
  - [ ] Refactor database integration so it is more compact and DRY,
  - [ ] Introduce form-field validation,
  - [ ] Ensure database functionality with multiple users acesssing the base in different time.
